@@ -6,10 +6,18 @@
   <title>Create Character - Step <%= step %></title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/character-creation.css">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="form-container">
-    <h1>Create Your D&D Character</h1>
+  <div class="fantasy-container">
+    <div class="fantasy-icon">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="#8B5C2A" stroke-width="4" fill="#F9E4B7"/>
+        <path d="M30 12 L36 36 L24 36 Z" fill="#8B5C2A"/>
+        <circle cx="30" cy="44" r="4" fill="#8B5C2A"/>
+      </svg>
+    </div>
+    <h1 class="fantasy-title">Create Your D&D Character</h1>
     
     <!-- Step Indicator -->
     <div class="step-indicator">
@@ -123,8 +131,10 @@
               <% } %>
               <% if (race.traits && race.traits.length > 0) { %>
                 <p><strong>Traits:</strong>
-                  <% for (var i = 0; i < race.traits.length; i++) { %>
-                    <%= race.traits[i].name %><% if (i < race.traits.length - 1) { %>, <% } %>
+                  <% if (Array.isArray(race.traits)) { %>
+                    <%= race.traits.join(', ') %>
+                  <% } else { %>
+                    <%= race.traits %>
                   <% } %>
                 </p>
               <% } %>
@@ -216,14 +226,10 @@
 
       <div class="navigation-buttons">
         <% if (step > 1) { %>
-          <a href="/characters/create/step/<%= step - 1 %>">← Previous</a>
+          <a href="/characters/create/step/<%= step - 1 %>" class="cta-button">← Previous</a>
         <% } %>
-        <button type="submit">
-          <% if (step < 5) { %>
-            Next →
-          <% } else { %>
-            Create Character
-          <% } %>
+        <button type="submit" class="cta-button">
+          <%- step < 5 ? 'Next →' : 'Create Character' %>
         </button>
       </div>
     </form>

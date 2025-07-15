@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f9e4b7 url('https://www.transparenttextures.com/patterns/old-mathematics.png');
+  background: #f9e4b7 url('https://www.transparenttextures.com/patterns/exclusive-paper.png');
   margin: 0;
   padding: 0;
   text-align: center;
@@ -18,7 +18,7 @@ body {
 }
 
 .fantasy-title {
-  font-family: 'UnifrakturMaguntia', cursive;
+  font-family: 'UnifrakturMaguntia';
   font-size: 2.5rem;
   color: #6B4226;
   margin-top: 0.5rem;
@@ -56,7 +56,7 @@ a:hover {
   text-decoration: none;
   border-radius: 8px;
   border: 2px solid #8B5C2A;
-  font-family: 'UnifrakturMaguntia', cursive;
+  font-family: Arial, sans-serif;
   font-size: 1.1rem;
   box-shadow: 0 2px 8px #8B5C2A33;
   margin: 8px 0;

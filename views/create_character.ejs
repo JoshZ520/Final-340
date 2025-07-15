@@ -6,29 +6,35 @@
   <title>Create Character</title>
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/character-form.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Create a D&D Character</h1>
-  <% if (error) { %>
-    <p style="color: red;"><%= error %></p>
-  <% } %>
-  <form method="POST" action="/characters/create" id="characterForm">
-    <input type="text" name="name" placeholder="Character Name" required><br>
-    <input type="text" name="class" placeholder="Class" required><br>
-    
-    <h3>Stats:</h3>
-    <input type="number" name="str" placeholder="Strength" min="1" max="20" required><br>
-    <input type="number" name="dex" placeholder="Dexterity" min="1" max="20" required><br>
-    <input type="number" name="con" placeholder="Constitution" min="1" max="20" required><br>
-    <input type="number" name="int" placeholder="Intelligence" min="1" max="20" required><br>
-    <input type="number" name="wis" placeholder="Wisdom" min="1" max="20" required><br>
-    <input type="number" name="cha" placeholder="Charisma" min="1" max="20" required><br>
-    
-    <textarea name="description" placeholder="Description (optional)" rows="4" cols="40"></textarea><br>
-    <button type="submit">Create Character</button>
-  </form>
-  <p><a href="/">Back to Home</a></p>
-
-
+  <div class="fantasy-container">
+    <div class="fantasy-icon">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="#8B5C2A" stroke-width="4" fill="#F9E4B7"/>
+        <path d="M30 12 L36 36 L24 36 Z" fill="#8B5C2A"/>
+        <circle cx="30" cy="44" r="4" fill="#8B5C2A"/>
+      </svg>
+    </div>
+    <h1 class="fantasy-title">Create a D&D Character</h1>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form method="POST" action="/characters/create" id="characterForm">
+      <input type="text" name="name" placeholder="Character Name" required><br>
+      <input type="text" name="class" placeholder="Class" required><br>
+      <h3>Stats:</h3>
+      <input type="number" name="str" placeholder="Strength" min="1" max="20" required><br>
+      <input type="number" name="dex" placeholder="Dexterity" min="1" max="20" required><br>
+      <input type="number" name="con" placeholder="Constitution" min="1" max="20" required><br>
+      <input type="number" name="int" placeholder="Intelligence" min="1" max="20" required><br>
+      <input type="number" name="wis" placeholder="Wisdom" min="1" max="20" required><br>
+      <input type="number" name="cha" placeholder="Charisma" min="1" max="20" required><br>
+      <textarea name="description" placeholder="Description (optional)" rows="4" cols="40"></textarea><br>
+      <button type="submit" class="cta-button">Create Character</button>
+    </form>
+    <p><a href="/">Back to Home</a></p>
+  </div>
 </body>
 </html> 
