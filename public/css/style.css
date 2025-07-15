@@ -1,0 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f9e4b7 url('https://www.transparenttextures.com/patterns/old-mathematics.png');
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.fantasy-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: rgba(255, 248, 220, 0.95);
+  border: 6px double #8B5C2A;
+  border-radius: 18px;
+  box-shadow: 0 0 24px #8B5C2A55;
+  padding: 32px 24px 24px 24px;
+  position: relative;
+}
+
+.fantasy-title {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 2.5rem;
+  color: #6B4226;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #f9e4b7, 4px 4px 8px #8B5C2A33;
+}
+
+.fantasy-icon {
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-family: 'UnifrakturMaguntia', cursive;
+  color: #8B5C2A;
+}
+
+a {
+  color: #7c3aed;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #c084fc;
+  text-decoration: underline;
+}
+
+.cta-button {
+  background: linear-gradient(90deg, #7c3aed 0%, #c084fc 100%);
+  color: #fff8dc;
+  padding: 12px 28px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 2px solid #8B5C2A;
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px #8B5C2A33;
+  margin: 8px 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #c084fc 0%, #7c3aed 100%);
+  color: #6B4226;
+}
+
+.success-message {
+  color: #228B22;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Keep existing styles for compatibility */
+.home-section {
+  margin: 20px 0;
+} 

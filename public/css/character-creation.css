@@ -1,0 +1,266 @@
+/* Character Creation Step-by-Step Styles */
+
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.step {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.step.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.step.completed {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Class and Race Selection */
+.class-option, .race-option {
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.class-option:hover, .race-option:hover {
+  background-color: #f8f9fa;
+}
+
+.class-option input, .race-option input {
+  margin-right: 10px;
+}
+
+/* Description Boxes */
+.description-box {
+  margin-left: 25px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.description-box.class-desc {
+  border-left: 3px solid #007bff;
+}
+
+.description-box.race-desc {
+  border-left: 3px solid #28a745;
+}
+
+.description-box.background-desc {
+  border-left: 3px solid #6f42c1;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Proficiency Grids */
+.proficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.proficiency-option {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.proficiency-option:hover {
+  background-color: #f8f9fa;
+}
+
+.proficiency-option input {
+  margin-right: 8px;
+}
+
+/* Background Selection */
+.background-option {
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.background-option:hover {
+  background-color: #f8f9fa;
+}
+
+.background-option input {
+  margin-right: 10px;
+}
+
+/* Alignment Grid */
+.alignment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.alignment-option {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.alignment-option:hover {
+  background-color: #f8f9fa;
+}
+
+.alignment-option input {
+  margin-right: 10px;
+}
+
+/* Form Elements */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="number"]:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Buttons */
+.form-container button {
+  background: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+  background: #0056b3;
+}
+
+/* Navigation */
+.form-container a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.form-container a:hover {
+  background: #007bff;
+  color: white;
+}
+
+/* Error Messages */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+}
+
+/* Success Messages */
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 10px;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 10px;
+  }
+  
+  .step-indicator {
+    flex-wrap: wrap;
+  }
+  
+  .step {
+    margin: 2px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .stats-grid,
+  .proficiency-grid,
+  .alignment-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+} 

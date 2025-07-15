@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D Character Sharing</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Fantasy Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="fantasy-container">
+    <!-- Fantasy Icon (SVG) -->
+    <div class="fantasy-icon">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="#8B5C2A" stroke-width="4" fill="#F9E4B7"/>
+        <path d="M30 12 L36 36 L24 36 Z" fill="#8B5C2A"/>
+        <circle cx="30" cy="44" r="4" fill="#8B5C2A"/>
+      </svg>
+    </div>
+    <h1 class="fantasy-title">Welcome to D&D Character Sharing!</h1>
+    <% if (typeof success !== 'undefined' && success === 'character_created') { %>
+      <p class="success-message">Character created successfully!</p>
+    <% } %>
+    <div class="home-section">
+      <a href="/register">Register</a> | <a href="/login">Login</a>
+    </div>
+    <div class="home-section">
+      <h2>Create a Character</h2>
+      <p><a href="/characters/create/step/1" class="cta-button">Start Step-by-Step Creation</a></p>
+      <p><a href="/characters/create">Quick Create (Original Form)</a></p>
+    </div>
+  </div>
+</body>
+</html> 

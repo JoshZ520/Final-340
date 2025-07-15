@@ -1,0 +1,17 @@
+{
+	"dependencies": {
+		"bcrypt": "^6.0.0",
+		"ejs": "^3.1.10",
+		"express": "^5.1.0",
+		"express-session": "^1.18.1",
+		"pg": "^8.16.0",
+		"sqlite3": "^5.1.7"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.10"
+	},
+	"scripts": {
+		"dev": "nodemon app.js",
+		"start": "node app.js"
+	}
+}

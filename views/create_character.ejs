@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Character</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/character-form.js" defer></script>
+</head>
+<body>
+  <h1>Create a D&D Character</h1>
+  <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  <form method="POST" action="/characters/create" id="characterForm">
+    <input type="text" name="name" placeholder="Character Name" required><br>
+    <input type="text" name="class" placeholder="Class" required><br>
+    
+    <h3>Stats:</h3>
+    <input type="number" name="str" placeholder="Strength" min="1" max="20" required><br>
+    <input type="number" name="dex" placeholder="Dexterity" min="1" max="20" required><br>
+    <input type="number" name="con" placeholder="Constitution" min="1" max="20" required><br>
+    <input type="number" name="int" placeholder="Intelligence" min="1" max="20" required><br>
+    <input type="number" name="wis" placeholder="Wisdom" min="1" max="20" required><br>
+    <input type="number" name="cha" placeholder="Charisma" min="1" max="20" required><br>
+    
+    <textarea name="description" placeholder="Description (optional)" rows="4" cols="40"></textarea><br>
+    <button type="submit">Create Character</button>
+  </form>
+  <p><a href="/">Back to Home</a></p>
+
+
+</body>
+</html> 

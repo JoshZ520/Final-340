@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Character - Step <%= step %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/character-creation.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Create Your D&D Character</h1>
+    
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step <%= step >= 1 ? 'active' : '' %>">1. Basics</div>
+      <div class="step <%= step >= 2 ? 'active' : '' %>">2. Class</div>
+      <div class="step <%= step >= 3 ? 'active' : '' %>">3. Race</div>
+      <div class="step <%= step >= 4 ? 'active' : '' %>">4. Stats</div>
+      <div class="step <%= step >= 5 ? 'active' : '' %>">5. Details</div>
+    </div>
+
+    <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/characters/create/step/<%= step %>">
+      
+      <% if (step === 1) { %>
+        <!-- Step 1: Character Basics (Name, Level, Background) -->
+        <h2>Character Basics</h2>
+        
+        <!-- Character Name -->
+        <h3>Character Name</h3>
+        <p>What's your character's name?</p>
+        <input type="text" name="name" placeholder="Enter character name" 
+               value="<%= characterData.name || '' %>" required>
+
+        <!-- Level Selection -->
+        <h3>Character Level</h3>
+        <p>Select your character's level:</p>
+        <select name="level" required>
+          <option value="">Choose a level...</option>
+          <% if (data.levels) { %>
+            <% data.levels.forEach(function(level) { %>
+              <option value="<%= level %>" <%= characterData.level === level ? 'selected' : '' %>>
+                <%= level %>
+              </option>
+            <% }); %>
+          <% } %>
+        </select>
+
+        <!-- Background Selection -->
+        <h3>Character Background</h3>
+        <p>Choose your character's background:</p>
+        <select name="background" required onchange="handleBackgroundChange(this)">
+          <option value="">Choose a background...</option>
+          <% if (data.backgrounds) { %>
+            <% data.backgrounds.forEach(function(background, index) { %>
+              <option value="<%= background.name %>" 
+                      data-index="<%= index %>"
+                      <%= characterData.background === background.name ? 'selected' : '' %>>
+                <%= background.name %>
+              </option>
+            <% }); %>
+          <% } %>
+        </select>
+        
+        <!-- Background Description Container -->
+        <div id="background-description-container" class="description-box background-desc" style="display: none;">
+          <p><strong>Description:</strong> <span id="background-desc-text"></span></p>
+          <p><strong>Skill Proficiencies:</strong> <span id="background-skill-profs"></span></p>
+          <p><strong>Tool Proficiencies:</strong> <span id="background-tool-profs"></span></p>
+          <p><strong>Additional Languages:</strong> <span id="background-languages"></span></p>
+          <p><strong>Equipment:</strong> <span id="background-equipment"></span></p>
+        </div>
+      
+      <% } else if (step === 2) { %>
+        <!-- Step 2: Class Selection -->
+        <h2>Choose your character's class</h2>
+        <% if (data.classes) { %>
+          <% data.classes.forEach(function(charClass, index) { %>
+            <label class="class-option">
+              <input type="radio" name="class" value="<%= charClass.name %>" 
+                     <%= characterData.class === charClass.name ? 'checked' : '' %> required
+                     onchange="showClassDescription('<%= index %>', '<%= charClass.name %>')">
+              <strong><%= charClass.name %></strong>
+            </label>
+            <div id="class-desc-<%= index %>" class="description-box class-desc" style="display: none;">
+              <p><strong>Description:</strong> <%= charClass.description %></p>
+              <% if (charClass.hitDie) { %>
+                <p><strong>Hit Die:</strong> d<%= charClass.hitDie %></p>
+              <% } %>
+              <% if (charClass.proficiencies && charClass.proficiencies.length > 0) { %>
+                <p><strong>Proficiencies:</strong> <%= charClass.proficiencies.map(p => p.name).join(', ') %></p>
+              <% } %>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>Loading classes...</p>
+        <% } %>
+      
+      <% } else if (step === 3) { %>
+        <!-- Step 3: Race Selection -->
+        <h2>Choose your character's race</h2>
+        <% if (data.races) { %>
+          <% data.races.forEach(function(race, index) { %>
+            <label class="race-option">
+              <input type="radio" name="race" value="<%= race.name %>" 
+                     <%= characterData.race === race.name ? 'checked' : '' %> required
+                     onchange="showRaceDescription('<%= index %>', '<%= race.name %>')">
+              <strong><%= race.name %></strong>
+            </label>
+            <div id="race-desc-<%= index %>" class="description-box race-desc" style="display: none;">
+              <p><strong>Description:</strong> <%= race.description %></p>
+              <% if (race.abilityBonuses && race.abilityBonuses.length > 0) { %>
+                <p><strong>Ability Bonuses:</strong></p>
+                <ul>
+                  <% race.abilityBonuses.forEach(function(bonus) { %>
+                    <li><%= bonus.ability %>: +<%= bonus.score %></li>
+                  <% }) %>
+                </ul>
+              <% } %>
+              <% if (race.traits && race.traits.length > 0) { %>
+                <p><strong>Traits:</strong>
+                  <% for (var i = 0; i < race.traits.length; i++) { %>
+                    <%= race.traits[i].name %><% if (i < race.traits.length - 1) { %>, <% } %>
+                  <% } %>
+                </p>
+              <% } %>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>Loading races...</p>
+        <% } %>
+      
+      <% } else if (step === 4) { %>
+        <!-- Step 4: Ability Scores and Proficiencies -->
+        <h2>Set your ability scores and proficiencies</h2>
+        
+        <!-- Ability Scores -->
+        <h3>Ability Scores</h3>
+        <p>Enter values between 1-20 for each ability score:</p>
+        <div class="stats-grid">
+          <input type="number" name="str" placeholder="Strength" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.str : '' %>" required>
+          <input type="number" name="dex" placeholder="Dexterity" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.dex : '' %>" required>
+          <input type="number" name="con" placeholder="Constitution" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.con : '' %>" required>
+          <input type="number" name="int" placeholder="Intelligence" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.int : '' %>" required>
+          <input type="number" name="wis" placeholder="Wisdom" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.wis : '' %>" required>
+          <input type="number" name="cha" placeholder="Charisma" min="1" max="20" 
+                 value="<%= characterData.stats ? characterData.stats.cha : '' %>" required>
+        </div>
+
+        <!-- Saving Throw Proficiencies -->
+        <h3>Saving Throw Proficiencies</h3>
+        <p>Select which saving throws your character is proficient in:</p>
+        <div class="proficiency-grid">
+          <% if (data.abilities) { %>
+            <% data.abilities.forEach(function(ability) { %>
+              <label class="proficiency-option">
+                <input type="checkbox" name="savingThrows" value="<%= ability.abbr %>"
+                       <%= characterData.savingThrows && characterData.savingThrows.includes(ability.abbr) ? 'checked' : '' %>>
+                <%= ability.name %> (<%= ability.abbr.toUpperCase() %>)
+              </label>
+            <% }); %>
+          <% } %>
+        </div>
+
+        <!-- Skill Proficiencies -->
+        <h3>Skill Proficiencies</h3>
+        <p>Select which skills your character is proficient in:</p>
+        <div class="skills-grid">
+          <% if (data.skills) { %>
+            <% data.skills.forEach(function(skill) { %>
+              <label class="proficiency-option">
+                <input type="checkbox" name="skillProficiencies" value="<%= skill.name %>"
+                       <%= characterData.skillProficiencies && characterData.skillProficiencies.includes(skill.name) ? 'checked' : '' %>>
+                <%= skill.name %>
+              </label>
+            <% }); %>
+          <% } else { %>
+            <p>Loading skills...</p>
+          <% } %>
+        </div>
+      
+      <% } else if (step === 5) { %>
+        <!-- Step 5: Alignment and Description -->
+        <h2>Final Character Details</h2>
+        
+        <!-- Alignment Selection -->
+        <h3>Character Alignment</h3>
+        <p>Choose your character's alignment:</p>
+        <div class="alignment-grid">
+          <% if (data.alignments) { %>
+            <% data.alignments.forEach(function(alignment) { %>
+              <label class="alignment-option">
+                <input type="radio" name="alignment" value="<%= alignment %>" 
+                       <%= characterData.alignment === alignment ? 'checked' : '' %> required>
+                <strong><%= alignment %></strong>
+              </label>
+            <% }); %>
+          <% } %>
+        </div>
+
+        <!-- Description -->
+        <h3>Character Description</h3>
+        <p>Tell us about your character's background, personality, or appearance:</p>
+        <textarea name="description" placeholder="Character description (optional)" 
+                  rows="6"><%= characterData.description || '' %></textarea>
+      <% } %>
+
+      <div class="navigation-buttons">
+        <% if (step > 1) { %>
+          <a href="/characters/create/step/<%= step - 1 %>">← Previous</a>
+        <% } %>
+        <button type="submit">
+          <% if (step < 5) { %>
+            Next →
+          <% } else { %>
+            Create Character
+          <% } %>
+        </button>
+      </div>
+    </form>
+
+    <p class="back-link"><a href="/">Back to Home</a></p>
+  </div>
+
+  <script src="/js/character-creation.js"></script>
+  <script>
+    // EJS Template Code - Server data injection
+    // Make background data globally available
+    const backgroundData = <%- JSON.stringify(data.backgrounds || []) %>;
+    
+    // Function to handle background selection
+    function handleBackgroundChange(selectElement) {
+      showBackgroundDescription(selectElement.value, backgroundData);
+    }
+    
+    window.onload = function() {
+      initCharacterCreation(
+        <%= step %>,
+        <%- JSON.stringify(characterData || {}) %>,
+        <%- JSON.stringify(data.backgrounds || []) %>,
+        <%- JSON.stringify(data.classes || []) %>,
+        <%- JSON.stringify(data.races || []) %>
+      );
+    };
+  </script>
+</body>
+</html> 
